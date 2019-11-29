@@ -101,6 +101,7 @@ button {
 	text-align: center;
 }
 #results textarea {
+	width: 340px;
 	display: inline-block;
 	background: #fff;
 	padding: 5px 20px;
