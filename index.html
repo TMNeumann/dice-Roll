@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dice Roller</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<meta name="description" content="A fast clean dice roller with no adds">
+	<meta name="author" content="TNeumanndev">
+	<meta name="theme-color" content="#c0c0c0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:image" content="">
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" type="image/x-icon" href="">
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta name='mobile-web-app-capable' content='yes'>
+	<meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='application-name' content='rollDice'>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+    <meta name='apple-mobile-web-app-title' content='rollDice'>
+    <link rel='icon' sizes='192x192' href='/images/icons/icon-192x192.png'>
+    <link rel='apple-touch-icon' href='/images/icons/icon-192x192.png'>
+    <meta name='msapplication-TileImage' content='/images/icons/icon-144x144.png'>
+    <meta name='msapplication-TileColor' content='#8627d2'>
+	<!-- <script src=”cordova.js”></script>
+	<script src=”scripts/platformOverrides.js”></script> -->
+</head>
+<body>
+	<header>
+		<h1 id="title"><a href="" id="btnAddToHomeScreen">Dice Roll</a></h1>
+	</header>
+	<section class="main">
+		<div class="diceGrid">
+			<div>
+				<button onclick="addDice(this)" customId="mult3">+</button>
+				<button onclick="remDice(this)" customId="mult3"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_3"><span id="mult3">1</span> d3</button>
+				<p id="d_3" class="diceRoll"></p>
+			</div>
+			<div>
+				<button onclick="addDice(this)" customId="mult4">+</button>
+				<button onclick="remDice(this)" customId="mult4"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_4"><span id="mult4">1</span> d4</button>
+				<p id="d_4" class="diceRoll"></p>
+			</div>
+			<div>
+				<button onclick="addDice(this)" customId="mult6">+</button>
+				<button onclick="remDice(this)" customId="mult6"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_6"><span id="mult6">1</span> d6</button>
+				<p id="d_6" class="diceRoll"></p>
+			</div>
+			<div>
+				<button onclick="addDice(this)" customId="mult8">+</button>
+				<button onclick="remDice(this)" customId="mult8"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_8"><span id="mult8">1</span> d8</button>
+				<p id="d_8" class="diceRoll"></p>
+			</div>
+			<div>
+				<button onclick="addDice(this)" customId="mult10">+</button>
+				<button onclick="remDice(this)" customId="mult10"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_10"><span id="mult10">1</span> d10</button>
+				<p id="d_10" class="diceRoll"></p>
+			</div>
+			<div>
+				<button onclick="addDice(this)" customId="mult12">+</button>
+				<button onclick="remDice(this)" customId="mult12"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_12"><span id="mult12" class="sp">1</span> d12</button>
+				<p id="d_12" class="diceRoll"></p>
+			</div>
+			<div>
+				<button onclick="addDice(this)" customId="mult20">+</button>
+				<button onclick="remDice(this)" customId="mult20"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_20"><span id="mult20" class="sp">1</span> d20</button>
+				<p id="d_20" class="diceRoll"></p>
+			</div>
+			<div>
+				<button onclick="addDice(this)" customId="mult100">+</button>
+				<button onclick="remDice(this)" customId="mult100"disabled>-</button>
+				<button onclick="getDice(event)" id="rollD_100"><span id="mult100" class="sp">1</span> d100</button>
+				<p id="d_100" class="diceRoll"></p>
+			</div>
+			<div class="refreshButton">
+				<button onclick="refresh(event)">&#8635;</button>
+			</div>
+		</div>
+		
+		<div id="results">
+			
+		</div>
+	</section>
+	<footer>
+		
+	</footer>
+
+	<script>
+		function getDice(event){
+			var tg = event.target.id;
+			var spl = tg.split("_"); //separa o id em uma string
+			var num = spl.slice(-1)[0]; //pega o numero da string
+			var spanId = "mult"+num;
+			var mult = document.getElementById(spanId);
+			var mt = mult.innerText;
+			var pId = "d_" + num; // trata o numero para virar a id do p
+			var p = document.getElementById(pId); // p
+			var vet = [];
+			for (i = 0; i < mt; i++) {
+				var x = Math.floor((Math.random() * num) + 1 ); //funcao rolar dado
+				vet[i] = x
+			};
+			var total = vet.reduce(function(prev, curr) {
+				return prev + curr;
+			});
+			p.innerHTML = total; //adiciona o resultado no html
+			if (total == 1) {p.style.color = "red"} //verifica se foi falha critica e tinge de vermelho
+			else if (total == (mt * num)) {p.style.color = "blue"} // verifica se foi critico e tinge de azul
+			else {p.style.color = "#c0c0c0"}; // deixa a cor como estava
+			
+			document.getElementById("results").innerHTML = "<textarea>" + vet + "</textarea>";
+		};
+		function addDice(e){
+			var tg = e.getAttribute('customId');
+			var mult = document.getElementById(tg);
+			var mText = mult.innerText;
+			var val = parseInt(mText);
+			var nVal = val+1;
+			mult.innerHTML = nVal;
+			if (nVal > 1) {
+				e.nextElementSibling.removeAttribute("disabled","disabled");
+			};
+		}
+		function remDice(e){
+			var tg = e.getAttribute('customId');
+			var mult = document.getElementById(tg);
+			var mText = mult.innerText;
+			var val = parseInt(mText);
+			var nVal = val-1;
+			mult.innerHTML = nVal;
+			if (nVal == 1) {
+				e.setAttribute("disabled","disabled");
+			};
+		}
+		function refresh(event) {
+			location.reload();
+		}
+
+
+		if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+            	.register('/sw.js')
+                .then(function () {console.log("Service Worker Registered"); });
+        }
+        // var deferredPrompt;
+        // window.addEventListener('beforeinstallprompt', function (e) {
+        //     console.log('beforeinstallprompt Event fired');
+        //     //e.preventDefault();
+        //     deferredPrompt = e;
+        //     return false;
+        // });
+	</script>
+</body>
+</html>
+
+
+
+
+
+	<!-- 	function getDice(event){
+			var tg = event.target.id;
+			var spl = tg.split("_"); //separa o id em uma string
+			var num = spl.slice(-1)[0]; //pega o numero da string
+			var spanId = "mult"+num;
+			var mult = document.getElementById(spanId);
+			var mt = mult.innerText;
+			var pId = "d_" + num; // trata o numero para virar a id do p
+			var p = document.getElementById(pId); // p
+			var x = Math.floor(((Math.random() * num) + 1 ) * mt); //funcao rolar dado
+			p.innerHTML = x; //adiciona o resultado no html
+			if (x == 1) {p.style.color = "red"} //verifica se foi falha critica e tinge de vermelho
+			else if (x == num & mult == 1) {p.style.color = "blue"} // verifica se foi critico e tinge de azul
+			else {p.style.color = "#c0c0c0"}; // deixa a cor como estava
+			var res = document.querySelector(".results").innerHTML;
+			
+			res = x;
+			console.log(res);
+		}; -->
