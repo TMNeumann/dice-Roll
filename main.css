@@ -33,7 +33,7 @@ button {
 
 .diceGrid {
 	max-width: 380px;
-	margin: 20px auto;
+	margin: 0 auto 10px;
 	padding: 20px;
 	background: rgba(255,255,255,0.25);
 	border-radius: 5px;
