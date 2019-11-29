@@ -30,38 +30,7 @@ button {
 	cursor: pointer;
 	border-radius: 5px
 }
-#title {
-	margin: 20px;
-    background: #ccc;
-    width: 80px;
-    height: 80px;
-    position: relative;
-    text-align: center;
-    transform: rotate(20deg);
-    border-radius: 4px;
-}
-#title:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 80px;
-	width: 80px;
-    background: #ccc;
-    transform: rotate(135deg);
-    border-radius: 4px;
- }
- #title a {
-	width: 100%;
-    position: absolute;
-    top: 16px;
-    left: 0;
-    display: inline-block;
-    text-align: center;
-    color: #000;
-    font-size: 20px;
-    transform: rotate(-21deg);
- }
+
 .diceGrid {
 	max-width: 380px;
 	margin: 20px auto;
