@@ -40,7 +40,7 @@ button {
 	text-align: center;
 }
 .diceGrid > div {
-	margin: 25px auto;
+	margin: 10px auto;
 	border: solid 1px #000;
 	border-radius: 5px;
 	display: flex;
