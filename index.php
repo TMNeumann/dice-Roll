@@ -28,6 +28,14 @@
 	<header>
 		
 	</header>
+	<?php
+		$file = fopen('contador.txt', 'r+');
+		$line = fgets($file);
+		$data = (int)$line;
+		$datanum = ++$data;
+		echo $datanum;
+		file_put_contents('contador.txt', $datanum);
+	?>
 	<section class="main">
 		<div class="diceGrid">
 			<div>
